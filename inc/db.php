@@ -205,6 +205,27 @@ class DB {
 		return $stmt->fetchAll();
 	}
 
+	public static function dumpDatabase() {
+		// TODO: Move this to a view
+		$stmt = static::$conn->prepare('
+			SELECT
+				packages.PackageId, packages.DownloadCount,
+				packages.LatestVersion, versions.VersionId,
+				versions.Title, versions.Description,
+				versions.Tags, versions.LicenseUrl, versions.ProjectUrl,
+				versions.IconUrl, versions.Authors, versions.Owners,
+				versions.RequireLicenseAcceptance, versions.Copyright,
+				versions.Created, versions.Version, versions.PackageHash,
+				versions.PackageHashAlgorithm, versions.PackageSize,
+				versions.Dependencies, versions.ReleaseNotes,
+				versions.VersionDownloadCount, versions.IsPrerelease
+			FROM packages
+			INNER JOIN versions ON packages.PackageId = versions.PackageId
+		');
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+
 	public static function validateIdAndVersion($id, $version) {
 		$stmt = static::$conn->prepare('
 			SELECT COUNT(1)
