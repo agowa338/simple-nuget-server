@@ -8,7 +8,7 @@ if (request_method() === 'PUT') {
 }
 
 // If this page is not accessed by NuGet, redirect the request to the status page.
-if ($_SERVER['HTTP_USER_AGENT'] !== 'Mozilla/5.0 NuGet') {
+if (isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] !== 'Mozilla/5.0 NuGet') {
     header('Location: /status.php', true, 302);
 }
 
