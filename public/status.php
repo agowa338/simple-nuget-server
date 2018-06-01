@@ -39,7 +39,6 @@ header('Content-Type: text/html; charset=utf-8');
   <body>
     <table id="tableVersions">
         <?php
-        //$resultVersions = DB::$conn->query('SELECT * FROM versions');
         $resultVersions = DB::dumpDatabase();
 
         $RowPackageId    = "<th>PackageId</th>";

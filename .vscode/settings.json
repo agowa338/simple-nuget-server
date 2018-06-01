@@ -8,4 +8,5 @@
   "[php]": {
     "files.trimTrailingWhitespace": true
   },
+  "php-cs-fixer.rules": "@PSR2",
 }
