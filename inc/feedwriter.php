@@ -7,10 +7,18 @@ class FeedWriter
     public function __construct($id)
     {
         $this->_feedID = $id;
-        $this->_baseURL =
-            url_scheme() .
-            $_SERVER['SERVER_NAME'] .
-            rtrim(dirname($_SERVER['REQUEST_URI']), '/') . '/';
+        
+        if ($_SERVER['SERVER_NAME'] === "localhost") {
+            $this->_baseURL =
+                url_scheme() .
+                $_SERVER['HTTP_HOST'] .
+                rtrim(dirname($_SERVER['REQUEST_URI']), '/') . '/';
+        } else {
+            $this->_baseURL =
+                url_scheme() .
+                $_SERVER['SERVER_NAME'] .
+                rtrim(dirname($_SERVER['REQUEST_URI']), '/') . '/';
+        }
     }
 
     public function write(array $results)

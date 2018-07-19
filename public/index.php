@@ -13,7 +13,11 @@ if (isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] !== 'Mozil
 }
 
 header('Content-Type: text/xml; charset=utf-8');
-$base_url = url_scheme() . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']);
+if ($_SERVER['SERVER_NAME'] === "localhost") {
+    $base_url = url_scheme() . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']);
+} else {
+	$base_url = url_scheme() . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']);
+}
 echo '<' . "?xml version='1.0' encoding='utf-8' standalone='yes'?>";
 echo '
 <service xml:base="' . rtrim($base_url, '/') . '"' .
